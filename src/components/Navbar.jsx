@@ -1,37 +1,37 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { navLinks, socialLinks } from "../data/constants";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { smoothScroll } from "../utils/smoothScroll"; // Import the utility
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleNavClick = (id) => {
+    smoothScroll(id);
+    setIsOpen(false); // Close mobile menu after clicking
+  };
+
   return (
     <nav className="sticky top-0 z-50 bg-dark-bg/90 backdrop-blur-sm shadow-lg py-4">
       <div className="container mx-auto px-6 flex justify-between items-center">
-        {/* Logo/Initials */}
-        <NavLink
-          to="/"
-          className="text-3xl font-bold tracking-widest text-primary border-2 border-primary rounded-full w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-105"
+        <button
+          onClick={() => handleNavClick("home")}
+          className="text-3xl font-bold tracking-widest text-primary border-2 border-primary rounded-full w-16 h-16 flex items-center justify-center transition-all duration-300 hover:scale-105"
         >
           LS
-        </NavLink>
+        </button>
 
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-8">
           {navLinks.map((link) => (
-            <NavLink
+            <button
               key={link.id}
-              to={link.path}
-              className={({ isActive }) =>
-                `text-lg font-medium transition-colors duration-300 relative group ${
-                  isActive ? "text-primary" : "text-white hover:text-primary"
-                }`
-              }
+              onClick={() => handleNavClick(link.id)}
+              className="text-lg font-medium transition-colors duration-300 relative group text-white hover:text-primary"
             >
               {link.title}
               <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full"></span>
-            </NavLink>
+            </button>
           ))}
         </div>
 
@@ -69,14 +69,13 @@ function Navbar() {
       >
         <div className="flex flex-col items-center space-y-4">
           {navLinks.map((link) => (
-            <NavLink
+            <button
               key={link.id}
-              to={link.path}
-              onClick={() => setIsOpen(false)}
+              onClick={() => handleNavClick(link.id)}
               className="text-xl font-medium text-white hover:text-primary transition-colors duration-300"
             >
               {link.title}
-            </NavLink>
+            </button>
           ))}
           <div className="flex space-x-6 pt-4 border-t border-gray-700 w-1/2 justify-center">
             {socialLinks.map((social, index) => (

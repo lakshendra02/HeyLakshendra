@@ -1,28 +1,46 @@
-import { useState } from "react";
-import SectionWrapper from "../components/SectionWrapper";
-import Button from "../components/Button";
+import { useState, useRef } from "react";
+import SectionWrapper from "./SectionWrapper";
+import Button from "./Button";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaLinkedinIn, FaGithub } from "react-icons/fa";
+import emailjs from "@emailjs/browser";
 
-function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+function ContactSection() {
+  const form = useRef();
+  const [loading, setLoading] = useState(false);
+  const [alertMessage, setAlertMessage] = useState({ type: "", message: "" });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // This is the placeholder for EmailJS integration.
-    // Replace this logic with your actual EmailJS send function:
-    // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target, 'YOUR_PUBLIC_KEY')
-    console.log("Form Submitted (Placeholder):", formData);
-    alert("Thank you for your message! (Form submission is simulated.)");
-    setFormData({ name: "", email: "", message: "" });
+    setLoading(true);
+    setAlertMessage({ type: "", message: "" });
+
+    emailjs
+      .sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
+      .then(
+        (result) => {
+          console.log(result.text);
+          setAlertMessage({
+            type: "success",
+            message: "Thank you! Your message has been sent successfully.",
+          });
+          form.current.reset(); // Clear form fields
+        },
+        (error) => {
+          console.log(error.text);
+          setAlertMessage({
+            type: "error",
+            message: "Failed to send the message. Please try again later.",
+          });
+        }
+      )
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const contactMethods = [
@@ -30,19 +48,19 @@ function Contact() {
       icon: FaEnvelope,
       label: "Email Me",
       value: "sejwanilakshen@gmail.com",
-      href: "mailto:sejwanilakshen@gmail.com",
+      href: "mailto:sejwanlakshen@gmail.com",
     },
     {
       icon: FaLinkedinIn,
       label: "Connect on LinkedIn",
-      value: "@yourprofile",
-      href: "https://linkedin.com/in/yourprofile",
+      value: "@Lakshendra Sejwani",
+      href: "https://www.linkedin.com/in/lakshendra-sejwani",
     },
     {
       icon: FaGithub,
       label: "View My Code",
-      value: "@yourusername",
-      href: "https://github.com/yourusername",
+      value: "@lakshendra02",
+      href: "https://github.com/lakshendra02",
     },
   ];
 
@@ -58,13 +76,23 @@ function Contact() {
           viewport={{ once: true }}
         >
           <h3 className="text-2xl font-bold text-white mb-6">Send a Message</h3>
-          <form onSubmit={handleSubmit} className="space-y-6">
+
+          {/* Alert Message Display */}
+          {alertMessage.message && (
+            <div
+              className={`p-4 mb-4 rounded-lg text-white ${
+                alertMessage.type === "success" ? "bg-green-600" : "bg-red-600"
+              }`}
+            >
+              {alertMessage.message}
+            </div>
+          )}
+
+          <form ref={form} onSubmit={handleSubmit} className="space-y-6">
             <div>
               <input
                 type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
+                name="user_name" // MUST MATCH EmailJS template variable (e.g., {{user_name}})
                 placeholder="Your Name"
                 required
                 className="w-full p-3 bg-dark-bg border border-gray-700 rounded-lg focus:border-primary focus:outline-none text-white"
@@ -73,9 +101,7 @@ function Contact() {
             <div>
               <input
                 type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
+                name="user_email" // MUST MATCH EmailJS template variable (e.g., {{user_email}})
                 placeholder="Your Email"
                 required
                 className="w-full p-3 bg-dark-bg border border-gray-700 rounded-lg focus:border-primary focus:outline-none text-white"
@@ -83,17 +109,15 @@ function Contact() {
             </div>
             <div>
               <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
+                name="message" // MUST MATCH EmailJS template variable (e.g., {{message}})
                 placeholder="Your Message"
                 rows="6"
                 required
                 className="w-full p-3 bg-dark-bg border border-gray-700 rounded-lg focus:border-primary focus:outline-none text-white"
               ></textarea>
             </div>
-            <Button type="submit" variant="primary">
-              Send Message
+            <Button type="submit" variant="primary" disabled={loading}>
+              {loading ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </motion.div>
@@ -131,4 +155,4 @@ function Contact() {
   );
 }
 
-export default Contact;
+export default ContactSection;

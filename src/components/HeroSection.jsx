@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import Button from "../components/Button";
-import heroIllustration from "../assets/hero-illustration.svg"; // Placeholder
-import SectionWrapper from "../components/SectionWrapper";
+import Button from "./Button";
+import MyProfile from "..//assets/MyProfile.JPG";
+import SectionWrapper from "./SectionWrapper";
 function Home() {
   return (
     <SectionWrapper
@@ -19,7 +19,7 @@ function Home() {
           {/* Placeholder for artistic illustration/artwork */}
           <div className="relative w-full max-w-sm aspect-square bg-gradient-to-br from-primary/50 to-dark-bg rounded-3xl p-4">
             <img
-              src={heroIllustration} // Replace with your image
+              src={MyProfile} // Replace with your image
               alt="Artistic Illustration"
               className="w-full h-full object-contain filter drop-shadow-lg"
             />
@@ -56,7 +56,7 @@ function Home() {
             >
               Resume ↗
             </Button>
-            <Button variant="secondary" as="a" href="/contact">
+            <Button variant="secondary" as="a" href="#contact">
               Contact
             </Button>
           </div>

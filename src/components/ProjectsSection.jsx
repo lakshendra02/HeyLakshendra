@@ -1,7 +1,7 @@
-import SectionWrapper from "../components/SectionWrapper";
-import ProjectCard from "../components/ProjectCard";
+import SectionWrapper from "./SectionWrapper";
+import ProjectCard from "./ProjectCard";
 import { projects } from "../data/constants";
-import Button from "../components/Button";
+import Button from "./Button";
 
 function Projects() {
   return (
@@ -12,7 +12,11 @@ function Projects() {
         ))}
       </div>
       <div className="text-center mt-12">
-        <Button variant="secondary" as="a" href="#">
+        <Button
+          variant="secondary"
+          as="a"
+          href="https://github.com/lakshendra02"
+        >
           Explore More on GitHub
         </Button>
       </div>

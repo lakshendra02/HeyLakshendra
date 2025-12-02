@@ -8,21 +8,23 @@ import {
   FaLinkedin,
   FaGithub,
   FaTwitter,
+  FaInstagram,
 } from "react-icons/fa";
 import { SiMongodb, SiExpress, SiTailwindcss, SiMysql } from "react-icons/si";
+import image from "..//assets/project-thumb-1.jpg";
 
 export const navLinks = [
-  { id: "home", title: "Home", path: "/" },
-  { id: "about", title: "About", path: "/about" },
-  { id: "projects", title: "Projects", path: "/projects" },
-  { id: "skills", title: "Skills", path: "/skills" },
-  { id: "contact", title: "Contact", path: "/contact" },
+  { id: "home", title: "Home" },
+  { id: "about", title: "About" },
+  { id: "projects", title: "Projects" },
+  { id: "skills", title: "Skills" },
+  { id: "contact", title: "Contact" },
 ];
 
 export const socialLinks = [
-  { icon: FaGithub, href: "https://github.com/yourprofile" },
-  { icon: FaLinkedin, href: "https://linkedin.com/in/yourprofile" },
-  { icon: FaTwitter, href: "https://twitter.com/yourprofile" },
+  { icon: FaGithub, href: "https://github.com/lakshendra02" },
+  { icon: FaLinkedin, href: "https://www.linkedin.com/in/lakshendra-sejwani" },
+  { icon: FaInstagram, href: "" },
 ];
 
 export const technologies = [
@@ -40,39 +42,61 @@ export const technologies = [
 
 export const projects = [
   {
-    title: "TODOGENIX",
+    title: "PolicyPal",
     description:
-      "A full-stack task management application to boost productivity using the MERN stack.",
-    tags: ["React", "Node.js", "MongoDB", "Tailwind"],
-    image: "/assets/project-thumb-1.jpg",
-    liveLink: "#",
-    githubLink: "#",
+      "A full-stack AI powered policy document summarizer that helps users quickly grasp key points from lengthy insurance policies.",
+    tags: ["Next.js", "FastAPI", "PostgreSQL", "Tailwind CSS"],
+    image: image,
+    liveLink: "https://policy-pal-red.vercel.app/",
+    githubLink: "https://github.com/lakshendra02/PolicyPal.git",
   },
   {
-    title: "HEAL",
+    title: "QuickBlog",
     description:
-      "An AI-powered health monitoring system providing personalized wellness tips and progress tracking.",
-    tags: ["Next.js", "Python", "ML", "PostgreSQL"],
-    image: "/assets/project-thumb-2.jpg",
-    liveLink: "#",
-    githubLink: "#",
+      "An AI-powered blogging platform that simplifies content creation and management.",
+    tags: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
+    image: image,
+    liveLink: "https://ai-blog-app-hazel.vercel.app/",
+    githubLink: "https://github.com/lakshendra02/QuickBlog.git",
   },
   {
-    title: "VOICE OVER",
+    title: "Swipe Invoice App",
     description:
-      "A simple utility for converting text to speech using a modern, accessible interface.",
-    tags: ["React", "Web Speech API", "CSS"],
-    image: "/assets/project-thumb-3.jpg",
-    liveLink: "#",
-    githubLink: "#",
+      "A simple invoice management app that allows users to upload invoices and group its data into products, invoices and customers.",
+    tags: ["React", "Firebase", "CSS"],
+    image: image,
+    liveLink: "https://idyllic-sherbet-abf288.netlify.app/",
+    githubLink: "https://github.com/lakshendra02/SwipeInvoiceApp.git",
+  },
+];
+
+// ... (Keep existing imports and data like navLinks, socialLinks, technologies, projects)
+
+export const timelineEvents = [
+  {
+    date: "November - 2022",
+    description: "Joined IIIT Tiruchirappalli as a student of B.Tech (ECE).",
+    icon: "FaGraduationCap",
   },
   {
-    title: "Portfolio v1",
+    date: "March - 2023",
+    description: "Joined Web Dev Club, IIIT Tiruchirappalli as a member.",
+    icon: "FaCode",
+  },
+  {
+    date: "September - 2020",
     description:
-      "The first iteration of my personal website, built with pure HTML/CSS/JS for foundational practice.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    image: "/assets/project-thumb-4.jpg",
-    liveLink: "#",
-    githubLink: "#",
+      "Became Coordinator of Web Dev Club, IIIT Tiruchirappalli, organizing workshops and hackathons.",
+    icon: "FaBriefcase",
+  },
+  {
+    date: "April - 2024",
+    description: "Won Student Council of IIITT as a Technical Secretary.",
+    icon: "FaCertificate",
+  },
+  {
+    date: "June - 2024",
+    description: "Joined Zenquip as SDE Intern.",
+    icon: "FaLaptopCode",
   },
 ];

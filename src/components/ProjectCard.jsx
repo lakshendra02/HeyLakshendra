@@ -40,26 +40,30 @@ function ProjectCard({ project }) {
           ))}
         </div>
 
-        <div className="flex space-x-4">
+        {/* FIX APPLIED HERE: Changed button styling to achieve circular design */}
+        <div className="flex space-x-6 pt-4">
           <Button
             as="a"
             href={liveLink}
             target="_blank"
             variant="primary"
-            className="text-sm flex items-center gap-2 w-1/2 justify-center"
+            // Custom classes for circular button
+            className="w-20 h-16 rounded-full flex items-center justify-center p-0 text-base font-bold shadow-none hover:shadow-lg transition-all duration-300"
           >
-            Demo <FaExternalLinkAlt />
+            Demo
           </Button>
           <Button
             as="a"
             href={githubLink}
             target="_blank"
             variant="secondary"
-            className="text-sm flex items-center gap-2 w-1/2 justify-center"
+            // Custom classes for circular button
+            className="w-20 h-16 rounded-full flex items-center justify-center p-0 text-base font-bold shadow-none hover:shadow-lg transition-all duration-300"
           >
-            Code <FaGithub />
+            Code
           </Button>
         </div>
+        {/* Removed the icons (FaGithub, FaExternalLinkAlt) to fit the circular space */}
       </div>
     </motion.div>
   );

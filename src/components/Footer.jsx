@@ -1,6 +1,6 @@
 import { socialLinks, navLinks } from "../data/constants";
 import { FaHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { smoothScroll } from "../utils/smoothScroll";
 
 function Footer() {
   return (
@@ -8,9 +8,16 @@ function Footer() {
       <div className="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
         {/* Logo/Intro */}
         <div className="col-span-2 md:col-span-1">
-          <Link to="/" className="text-4xl font-extrabold text-primary">
+          <a
+            href="#home"
+            onClick={(e) => {
+              e.preventDefault();
+              smoothScroll("home");
+            }}
+            className="text-4xl font-extrabold text-primary" // Use 'a' tag instead of Link
+          >
             LS
-          </Link>
+          </a>
           <p className="text-gray-400 mt-4 text-sm max-w-xs mx-auto md:mx-0">
             Thanks for coming so far. I hope you like the content. Feel free to
             connect!
@@ -25,12 +32,16 @@ function Footer() {
           <ul className="space-y-2 text-gray-400">
             {navLinks.map((link) => (
               <li key={link.id}>
-                <Link
-                  to={link.path}
+                <a
+                  href={`#${link.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    smoothScroll(link.id);
+                  }}
                   className="hover:text-primary transition-colors duration-200"
                 >
                   {link.title}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>

@@ -1,5 +1,5 @@
-import SectionWrapper from "../components/SectionWrapper";
-import TechCard from "../components/TechCard";
+import SectionWrapper from "./SectionWrapper";
+import TechCard from "./TechCard";
 import { technologies } from "../data/constants";
 
 function Skills() {

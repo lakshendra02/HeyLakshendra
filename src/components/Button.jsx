@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { smoothScroll } from "../utils/smoothScroll";
 
 function Button({
   children,
@@ -8,9 +8,12 @@ function Button({
   className = "",
   ...props
 }) {
+  // FIX: Change rounded-full to rounded-xl for a rectangular shape with rounded corners
   const baseStyle =
-    "px-6 py-3 font-semibold rounded-full text-lg transition-all duration-300 shadow-md";
+    "px-6 py-3 font-semibold rounded-xl text-lg transition-all duration-300 shadow-md";
   let variantStyle = "";
+  const isInternalLink =
+    props.href && (props.href.startsWith("/") || props.href.startsWith("#"));
 
   if (variant === "primary") {
     variantStyle = "bg-primary text-dark-bg hover:bg-white hover:text-dark-bg";
@@ -23,12 +26,24 @@ function Button({
 
   const finalClassName = `${baseStyle} ${variantStyle} ${className}`;
 
-  if (Component === "a" && props.href && props.href.startsWith("/")) {
+  if (Component === "a" && isInternalLink) {
+    const sectionId = props.href.replace(/[/#]/g, "");
+
+    const handleClick = (e) => {
+      e.preventDefault();
+      smoothScroll(sectionId);
+    };
+
     return (
       <motion.div whileTap={{ scale: 0.95 }}>
-        <Link to={props.href} className={finalClassName} {...props}>
+        <a
+          onClick={handleClick}
+          className={finalClassName}
+          {...props}
+          href={`#${sectionId}`}
+        >
           {children}
-        </Link>
+        </a>
       </motion.div>
     );
   }
